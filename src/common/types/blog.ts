@@ -16,9 +16,7 @@ export type BlogItemProps = {
   slug: string;
   status: string;
   link: string;
-  title: {
-    rendered: string;
-  };
+  title: string;
   content: {
     rendered: string;
     markdown: string;
