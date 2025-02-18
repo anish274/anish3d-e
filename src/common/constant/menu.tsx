@@ -69,15 +69,6 @@ export const MENU_ITEMS: MenuItemProps[] = [
     type: 'Pages',
   },
   {
-    title: 'Notion Blog',
-    href: '/notion-blog',
-    icon: <BlogIcon size={iconSize} />,
-    isShow: true,
-    isExternal: false,
-    eventName: 'Pages: Notion Blog',
-    type: 'Pages',
-  },
-  {
     title: 'Learn',
     href: '/learn',
     icon: <LearnIcon size={iconSize} />,

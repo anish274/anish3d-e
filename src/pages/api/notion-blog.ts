@@ -58,6 +58,8 @@ export default async function handler(
         ],
       });
 
+      // res.status(200).json(JSON.parse(JSON.stringify(response.results)));
+
       const blogPosts = response.results.map(async (result: any) => {
         // cspell:disable-line
         const id = result.id;
@@ -72,14 +74,26 @@ export default async function handler(
           result.properties.cover_image?.files?.[0]?.file?.url ||
           result.properties.cover_image?.files?.[0]?.external?.url ||
           '';
+
+        //const unique_id_property = result.properties.get("PostID", {});
+        //const unique_id_value = result.properties.PostID.unique_id.number
+
+        //const prefix = unique_id_value.get("prefix");
+        //const mynumber = unique_id_value.get("number");
         return {
-          id: result.id,
-          title: result.properties.Name.title[0]?.plain_text,
+          id: result.properties.PostID.unique_id.number,
+          title: { rendered: result.properties.Name.title[0]?.plain_text },
           date: result.properties.Date.date?.start,
           slug: slug,
           status: status,
           featured_image_url: featured_image_url,
-          content: mdString,
+          total_views_count: 100,
+          excerpt: {
+            rendered:
+              result.properties.excerpt?.rich_text?.[0]?.plain_text || '',
+            protected: false,
+          },
+          content: { markdown: mdString, protected: false },
         };
       });
 

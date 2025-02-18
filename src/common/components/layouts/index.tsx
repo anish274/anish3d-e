@@ -33,6 +33,8 @@ const Layout = ({ children }: LayoutProps) => {
   const isFullPageHeader =
     pageName === 'playground' ||
     pageName === 'blog' ||
+    pageName === 'notion-blog' ||
+    router.pathname.startsWith('/notion-blog/') ||
     router.pathname.startsWith('/blog/') ||
     router.pathname.startsWith('/learn/');
 
