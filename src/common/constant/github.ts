@@ -7,7 +7,7 @@ export const GITHUB_ACCOUNTS = [
   //   is_active: true,
   // },
   {
-    username: 'aulianza',
+    username: 'anish274',
     token: process.env.GITHUB_READ_USER_TOKEN_PERSONAL,
     endpoint: '/api/github?type=personal',
     type: 'personal',

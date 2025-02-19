@@ -44,7 +44,7 @@ const NotionBlogDetailPage: NextPage<NotionBlogDetailPageProps> = ({
   return (
     <>
       <NextSeo
-        title={`${blogData?.title?.rendered} - Notion Blog Ryan Aulia`}
+        title={`${blogData?.title?.rendered} - Notion Blog ${process.env.NEXT_PUBLIC_FULL_NAME}`}
         description={description}
         canonical={canonicalUrl}
         openGraph={{
@@ -52,7 +52,7 @@ const NotionBlogDetailPage: NextPage<NotionBlogDetailPageProps> = ({
           article: {
             publishedTime: blogData?.date,
             modifiedTime: blogData?.date,
-            authors: ['Ryan Aulia', 'aulianza'],
+            authors: ['${process.env.NEXT_PUBLIC_FULL_NAME}'],
           },
           url: canonicalUrl,
           images: [

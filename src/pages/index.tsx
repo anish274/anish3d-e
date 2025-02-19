@@ -7,7 +7,9 @@ import Home from '@/modules/home';
 const HomePage: NextPage = () => {
   return (
     <>
-      <NextSeo title='Ryan Aulia - Personal Website' />
+      <NextSeo
+        title={`${process.env.NEXT_PUBLIC_FULL_NAME}` + ` - Personal Website`}
+      />
       <Container data-aos='fade-up'>
         <Home />
       </Container>
