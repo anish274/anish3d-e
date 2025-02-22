@@ -1,21 +1,25 @@
 <div align="center">
-  <h1>aulianza.id</h1>
-  <p>🔥 Personal website was built originally from scratch using Next.js, TypeScript, Tailwind CSS, SWR, Firebase and Prisma with PostgreSQL</p>
+  <h1>anish3d.com</h1>
+  <p>Notion Powered Personal website & portfolio. Using Next.js, TypeScript, Tailwind CSS, SWR, MDX, Firebase and Prisma. 
+Forked from aulianza's personal website.
 
-[![GitHub Repo stars](https://img.shields.io/github/stars/aulianza/aulianza.id)](https://github.com/aulianza/aulianza.id/stargazers)
-[![Depfu](https://badges.depfu.com/badges/02483ebb21fdb2182a66a28b68d1b7b0/status.svg)](https://depfu.com)
-[![Depfu](https://badges.depfu.com/badges/02483ebb21fdb2182a66a28b68d1b7b0/overview.svg)](https://depfu.com/github/aulianza/aulianza.id?project_id=38809)
-[![Depfu](https://badges.depfu.com/badges/02483ebb21fdb2182a66a28b68d1b7b0/count.svg)](https://depfu.com/github/aulianza/aulianza.id?project_id=38809)
+Difference is - anish3d is Notion Powered.
+
+</p>
+
+[![GitHub Repo stars](https://img.shields.io/github/stars/anish274/anish3d-e)](https://github.com/anish274/anish3d-e/stargazers)
+[![Depfu](https://badges.depfu.com/badges/28a8c633712cdf7ea189f04c02b0ff1a/status.svg)](https://depfu.com)
+[![Depfu](https://badges.depfu.com/badges/28a8c633712cdf7ea189f04c02b0ff1a/overview.svg)](https://depfu.com/github/anish274/anish3d-e?project_id=57628)
+[![Depfu](https://badges.depfu.com/badges/28a8c633712cdf7ea189f04c02b0ff1a/count.svg)](https://depfu.com/github/anish274/anish3d-e?project_id=57628)
 [![Last Update](https://img.shields.io/badge/deps%20update-every%20sunday-blue.svg)](https://shields.io/)
 
 </div>
 <br />
 
-<img width="1359" alt="image" src="https://github.com/aulianza/aulianza.id/assets/15605885/e9665038-6e84-4c8e-a847-fb90138c0303">
+<img width="1359" alt="image" src=" ">
 
 ## Introduction
 
-This website was carefully crafted from the ground using Next.js and other helpful tools, starting in June 2023.
 
 I'm constantly making improvements to add more features and content. This website is where I share what I've learned and offer insights to others.
 
@@ -56,10 +60,6 @@ On this website there are several features that will continue to be updated and 
 - ### 🤖 ChatGPT AI (Unavailable)
 
 You can access this feature by opening the command palette [cmd+k], then typing whatever you want to search/ask for. (Currently not available, but you can configure it on your machine with your own OpenAI api key)
-
-- ### 💻 JavaScript Playground
-
-A no-fuss pure JavaScript playground with a live feedback loop.
 
 - ### 💬 Realtime Guestbook
 

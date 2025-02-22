@@ -34,8 +34,8 @@ const HeaderTop = () => {
           <Image
             src={`/images/${process.env.NEXT_PUBLIC_PROFILE_PIC}`}
             alt={`${process.env.NEXT_PUBLIC_FULL_NAME}`}
-            width={40}
-            height={40}
+            width={50}
+            height={50}
             rounded='rounded-full'
             className='rotate-3 border-2 border-neutral-400 dark:border-neutral-600 lg:hover:scale-105'
           />

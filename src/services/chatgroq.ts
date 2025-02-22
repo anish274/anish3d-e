@@ -8,15 +8,19 @@ export const postChatPrompt = async (prompt: string) => {
   const response = await axios.post(
     OPENAI_URL,
     {
-      model: 'llama-3.3-70b-versatile',
-      max_tokens: 1000,
-      temperature: 0,
-      prompt: prompt + '. answer briefly',
+      model: 'llama-3.3-70b-versatile', //'mixtral-8x7b-32768', // Or another available model
+      messages: [
+        {
+          role: 'user',
+          content: prompt + '. answer briefly',
+        },
+      ],
+      max_tokens: 1024,
+      temperature: 1,
     },
     {
       headers: {
         'Content-Type': 'application/json',
-        // Authorization: `Bearer ${OPENAI_API_KEY}`,
         Authorization: `Bearer ${GROQ_API_KEY}`,
       },
     },

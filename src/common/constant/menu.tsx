@@ -5,6 +5,7 @@ import {
   BsInstagram as InstagramIcon,
   BsLinkedin as LinkedinIcon,
   BsTwitter as TwitterIcon,
+  BsTwitterX as TwitterXIcon,
 } from 'react-icons/bs';
 import {
   FiBookOpen as LearnIcon,
@@ -121,7 +122,7 @@ export const MENU_APPS: MenuItemProps[] = [
 export const SOCIAL_MEDIA: MenuItemProps[] = [
   {
     title: 'Email',
-    href: 'mailto:aulianza.dev@gmail.com',
+    href: 'mailto:anish@outlook.in',
     icon: <EmailIcon size={iconSize} />,
     isShow: true,
     isExternal: true,
@@ -132,7 +133,7 @@ export const SOCIAL_MEDIA: MenuItemProps[] = [
 
   {
     title: 'Linkedin',
-    href: 'https://www.linkedin.com/in/aulianza/',
+    href: 'https://www.linkedin.com/in/anish3d',
     icon: <LinkedinIcon size={iconSize} />,
     isShow: true,
     isExternal: true,
@@ -141,18 +142,18 @@ export const SOCIAL_MEDIA: MenuItemProps[] = [
     type: 'Link',
   },
   {
-    title: 'Twitter',
-    href: 'https://twitter.com/aulianzaa',
-    icon: <TwitterIcon size={iconSize} />,
+    title: 'X (Twitter)',
+    href: 'https://x.com/anish_journey',
+    icon: <TwitterXIcon size={iconSize} />,
     isShow: true,
     isExternal: true,
-    eventName: 'Social: Twitter',
+    eventName: 'Social: X (Twitter)',
     className: '!bg-sky-500 border border dark:border-neutral-700',
     type: 'Link',
   },
   {
     title: 'Instagram',
-    href: 'https://instagram.com/aulianza',
+    href: 'https://instagram.com/anish.journey',
     icon: <InstagramIcon size={iconSize} />,
     isShow: true,
     isExternal: true,
@@ -162,7 +163,7 @@ export const SOCIAL_MEDIA: MenuItemProps[] = [
   },
   {
     title: 'Github',
-    href: 'https://github.com/aulianza',
+    href: 'https://github.com/anish274',
     icon: <GithubIcon size={iconSize} />,
     isShow: true,
     isExternal: true,

@@ -1,7 +1,6 @@
 const canonicalUrl = process.env.NEXT_PUBLIC_CANONICAL_URL;
-const metaImage = 'https://cloud.aulianza.com/public/images/aulianza-id.png';
-const metaDescription =
-  'Seasoned Software Engineer especially in Frontend side, with a passion for creating pixel-perfect web experiences';
+const metaImage = process.env.NEXT_PUBLIC_META_IMAGE;
+const metaDescription = process.env.NEXT_PUBLIC_META_DESCRIPTION;
 
 const defaultSEOConfig = {
   defaultTitle: process.env.NEXT_PUBLIC_FULL_NAME + ' - Personal Website',
