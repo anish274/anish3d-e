@@ -16,10 +16,7 @@ const BlogDetail = ({
   content,
   tags_list,
 }: BlogDetailProps) => {
-  const { data: viewsData } = useSWR(
-    `/api/views?slug=${slug}&id=${id}`,
-    fetcher,
-  );
+  const { data: viewsData } = useSWR(`/api/views?id=${id}`, fetcher);
 
   const viewsCount = viewsData?.views || 0;
   const tagList = tags_list || [];

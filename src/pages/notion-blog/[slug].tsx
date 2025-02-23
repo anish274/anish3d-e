@@ -27,7 +27,7 @@ const NotionBlogDetailPage: NextPage<NotionBlogDetailPageProps> = ({
   const blogData = blog?.data || {};
 
   const slug = `notion-blog/${blogData?.slug}?id=${blogData?.id}`;
-  const canonicalUrl = `https://aulianza.id/${slug}`;
+  const canonicalUrl = `https://anish3d.com/${slug}`;
   const description = formatExcerpt(blogData?.excerpt?.rendered);
 
   const incrementViews = async () => {
@@ -60,7 +60,7 @@ const NotionBlogDetailPage: NextPage<NotionBlogDetailPageProps> = ({
               url: blogData?.featured_image_url,
             },
           ],
-          siteName: 'aulianza blog',
+          siteName: 'anish shah blog',
         }}
       />
       <Container data-aos='fade-up'>

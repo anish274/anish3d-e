@@ -15,7 +15,7 @@ const Story = () => {
           src='/images/signature.png'
           width={150}
           height={150}
-          alt='Aulianza'
+          alt='Anish Shah'
         />
       </div>
     </div>

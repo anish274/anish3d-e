@@ -129,7 +129,7 @@ const CommandPalette = () => {
 
   const handleFindGoogle = () => {
     const url =
-      'https://www.google.com/search?q=' + queryDebounce + '&ref=aulianza.id';
+      'https://www.google.com/search?q=' + queryDebounce + '&ref=anish3d.com';
     window.open(url, '_blank');
   };
 

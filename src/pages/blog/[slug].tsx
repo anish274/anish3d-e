@@ -9,23 +9,20 @@ import Container from '@/common/components/elements/Container';
 import { formatExcerpt } from '@/common/helpers';
 import { BlogDetailProps } from '@/common/types/blog';
 import BlogDetail from '@/modules/blog/components/BlogDetail';
-import { getBlogDetail } from '@/services/blog';
 
 const GiscusComment = dynamic(
   () => import('@/modules/blog/components/GiscusComment'),
 );
 
 interface BlogDetailPageProps {
-  blog: {
-    data: BlogDetailProps;
-  };
+  blog: BlogDetailProps;
 }
 
 const BlogDetailPage: NextPage<BlogDetailPageProps> = ({ blog }) => {
-  const blogData = blog?.data || {};
+  const blogData = blog || {};
 
-  const slug = `blog/${blogData?.slug}?id=${blogData?.id}`;
-  const canonicalUrl = `https://aulianza.id/${slug}`;
+  const slug = `blog/${blogData?.slug}`;
+  const canonicalUrl = `${process.env.NEXT_PUBLIC_CANONICAL_URL}/${slug}`;
   const description = formatExcerpt(blogData?.excerpt?.rendered);
 
   const incrementViews = async () => {
@@ -42,7 +39,7 @@ const BlogDetailPage: NextPage<BlogDetailPageProps> = ({ blog }) => {
   return (
     <>
       <NextSeo
-        title={`${blogData?.title?.rendered} - Blog ${process.env.NEXT_PUBLIC_FULL_NAME}`}
+        title={`${blogData?.title} - Blog ${process.env.NEXT_PUBLIC_FULL_NAME}`}
         description={description}
         canonical={canonicalUrl}
         openGraph={{
@@ -58,7 +55,7 @@ const BlogDetailPage: NextPage<BlogDetailPageProps> = ({ blog }) => {
               url: blogData?.featured_image_url,
             },
           ],
-          siteName: 'aulianza blog',
+          siteName: 'anish shah blog',
         }}
       />
       <Container data-aos='fade-up'>
@@ -75,31 +72,29 @@ const BlogDetailPage: NextPage<BlogDetailPageProps> = ({ blog }) => {
 export default BlogDetailPage;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const blogId = context.query?.id as string;
+  const { slug } = context.query;
 
-  if (!blogId) {
+  try {
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/notion-blog?slug=${slug}`,
+    );
+    const blog = response.data;
+
+    if (!blog) {
+      return {
+        notFound: true,
+      };
+    }
+
     return {
-      redirect: {
-        destination: '/',
-        permanent: false,
+      props: {
+        blog,
       },
     };
-  }
-
-  const response = await getBlogDetail(parseInt(blogId));
-
-  if (response?.status === 404) {
+  } catch (error) {
+    console.error(error);
     return {
-      redirect: {
-        destination: '/404',
-        permanent: false,
-      },
+      notFound: true,
     };
   }
-
-  return {
-    props: {
-      blog: response,
-    },
-  };
 };

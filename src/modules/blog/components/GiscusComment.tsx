@@ -11,7 +11,7 @@ const GiscusComment = ({ isEnableReaction = false }: GiscusComment) => {
   return (
     <div className='mb-2 mt-5'>
       <Giscus
-        repo='aulianza/aulianza.id'
+        repo='anish274/anish3d.com'
         repoId='R_kgDOJoIhfQ'
         category='General'
         categoryId='DIC_kwDOJoIhfc4CW6cJ'
