@@ -34,9 +34,9 @@ const Overview = ({ data }: OverviewProps) => {
     <div className='mb-1 grid gap-3 py-2 md:grid-cols-2'>
       <OverviewItem label='Start Date' value={startDate} />
       <OverviewItem label='End Date' value={endDate} />
-      <OverviewItem label='Daily Coding Average' value={dailyAverage} />
-      <OverviewItem label='This Week Coding Time' value={dailyTotal} />
-      <OverviewItem label='Best Day Coding Time' value={bestDay} />
+      <OverviewItem label='Daily Learning Average' value={dailyAverage} />
+      <OverviewItem label='This Week Learning Time' value={dailyTotal} />
+      <OverviewItem label='Best Day Learning Time' value={bestDay} />
       <OverviewItem label='All Time Since Today' value={allTimeSinceToday} />
     </div>
   );

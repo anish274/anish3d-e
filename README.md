@@ -61,10 +61,6 @@ On this website there are several features that will continue to be updated and 
 
 You can access this feature by opening the command palette [cmd+k], then typing whatever you want to search/ask for. (Currently not available, but you can configure it on your machine with your own OpenAI api key)
 
-- ### 💬 Realtime Guestbook
-
-Realtime guestbook chat is powered by Firebase. Anyone can leave me a message in this website.
-
 - ### 🎧 Spotify Status
 
 Displays song information being played on spotify in real time using the Spotify API and SWR.

@@ -20,6 +20,7 @@ import { PiChatCircleDotsBold as ChatIcon } from 'react-icons/pi';
 import { SiJavascript } from 'react-icons/si';
 
 import { MenuItemProps } from '../types/menu';
+import { DiScrum } from 'react-icons/di';
 
 const iconSize = 20;
 
@@ -96,25 +97,16 @@ export const MENU_ITEMS: MenuItemProps[] = [
     eventName: 'Pages: Contact',
     type: 'Pages',
   },
-  {
-    title: 'Guestbook',
-    href: '/guestbook',
-    icon: <ChatIcon size={iconSize} />,
-    isShow: true,
-    isExternal: false,
-    eventName: 'Pages: Chat',
-    type: 'Pages',
-  },
 ];
 
 export const MENU_APPS: MenuItemProps[] = [
   {
-    title: 'JS Playground',
-    href: '/playground',
-    icon: <SiJavascript size={iconSize} />,
+    title: 'AI User Stories',
+    href: '/ai-agent-scrum',
+    icon: <DiScrum size={iconSize} />,
     isShow: true,
     isExternal: false,
-    eventName: 'Pages: Playground',
+    eventName: 'Pages: AI User Stories Creation',
     type: 'Pages',
   },
 ];

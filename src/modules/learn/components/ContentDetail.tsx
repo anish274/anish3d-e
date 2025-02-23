@@ -9,7 +9,6 @@ import GiscusComment from '@/modules/blog/components/GiscusComment';
 import { fetcher } from '@/services/fetcher';
 
 import ContentBody from './ContentBody';
-import ContentPlayground from './ContentPlayground';
 
 interface ContentListItemProps {
   id: number;
@@ -94,7 +93,6 @@ const ContentDetail = ({ content, frontMatter }: ContentDetailProps) => {
         previousTitle={previousTitle}
         nextTitle={nextTitle}
       />
-      {isShowPlayground && <ContentPlayground initialCode={initialCode} />}
       {isShowComment && (
         <section
           id='comments'

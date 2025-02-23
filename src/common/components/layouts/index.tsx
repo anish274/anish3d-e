@@ -5,7 +5,6 @@ import { ReactNode } from 'react';
 import { useWindowSize } from 'usehooks-ts';
 
 import useHasMounted from '@/common/hooks/useHasMounted';
-import ChatButton from '@/modules/chat/components/ChatButton';
 
 import HeaderSidebar from './header/HeaderSidebar';
 import HeaderTop from './header/HeaderTop';
@@ -31,14 +30,11 @@ const Layout = ({ children }: LayoutProps) => {
   const pageName = router.pathname.split('/')[1];
 
   const isFullPageHeader =
-    pageName === 'playground' ||
     pageName === 'blog' ||
     pageName === 'notion-blog' ||
     router.pathname.startsWith('/notion-blog/') ||
     router.pathname.startsWith('/blog/') ||
     router.pathname.startsWith('/learn/');
-
-  const isShowChatButton = pageName !== 'guestbook';
 
   return (
     <>
@@ -63,7 +59,6 @@ const Layout = ({ children }: LayoutProps) => {
           </div>
         )}
       </div>
-      {isShowChatButton && <ChatButton />}
       {isMobile ? <NowPlayingCard /> : <NowPlayingBar />}
     </>
   );
