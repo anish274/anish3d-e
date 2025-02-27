@@ -66,6 +66,13 @@ export default async function handler(
           result.properties.cover_image?.files?.[0]?.external?.url ||
           '';
 
+        const tags =
+          result.properties.tags?.multi_select?.map((tag: any) => ({
+            term_id: tag.id,
+            name: tag.name,
+            color: tag.color,
+          })) || [];
+
         //const unique_id_property = result.properties.get("PostID", {});
         //const unique_id_value = result.properties.PostID.unique_id.number
 
@@ -85,6 +92,7 @@ export default async function handler(
               result.properties.excerpt?.rich_text?.[0]?.plain_text || '',
             protected: false,
           },
+          tags_list: tags,
           content: { markdown: mdString, protected: false },
         };
       });
