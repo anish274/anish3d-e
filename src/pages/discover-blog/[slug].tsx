@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { GetServerSideProps, NextPage } from 'next';
+import { getNotionBlogDetail } from '@/services/notion-blog';
 import dynamic from 'next/dynamic';
 import { NextSeo } from 'next-seo';
 import { useEffect } from 'react';
@@ -21,7 +22,7 @@ interface BlogDetailPageProps {
 const BlogDetailPage: NextPage<BlogDetailPageProps> = ({ blog }) => {
   const blogData = blog || {};
 
-  const slug = `blog/${blogData?.slug}`;
+  const slug = `discover-blog/${blogData?.slug}`;
   const canonicalUrl = `${process.env.NEXT_PUBLIC_CANONICAL_URL}/${slug}`;
   const description = formatExcerpt(blogData?.excerpt?.rendered);
 
@@ -39,7 +40,7 @@ const BlogDetailPage: NextPage<BlogDetailPageProps> = ({ blog }) => {
   return (
     <>
       <NextSeo
-        title={`${blogData?.title} - Blog ${process.env.NEXT_PUBLIC_FULL_NAME}`}
+        title={`${blogData?.title} - Discover Blog ${process.env.NEXT_PUBLIC_FULL_NAME}`}
         description={description}
         canonical={canonicalUrl}
         openGraph={{
@@ -59,7 +60,7 @@ const BlogDetailPage: NextPage<BlogDetailPageProps> = ({ blog }) => {
         }}
       />
       <Container data-aos='fade-up'>
-        <BackButton url='/blog' />
+        <BackButton url='/discover-blog' />
         <BlogDetail {...blogData} />
         <section id='comments'>
           <GiscusComment isEnableReaction={false} />
@@ -72,15 +73,22 @@ const BlogDetailPage: NextPage<BlogDetailPageProps> = ({ blog }) => {
 export default BlogDetailPage;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { slug } = context.query;
+  const { slug } = context.params as { slug: string };
+  const blogId = context.query?.id as string;
+
+  if (!blogId) {
+    return {
+      redirect: {
+        destination: '/discover-blog',
+        permanent: false,
+      },
+    };
+  }
 
   try {
-    const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/blog?slug=${slug}`,
-    );
-    const blog = response.data;
+    const post = await getNotionBlogDetail(blogId);
 
-    if (!blog) {
+    if (!post || post?.status === 404) {
       return {
         notFound: true,
       };
@@ -88,9 +96,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     return {
       props: {
-        blog,
+        blog: post.data,
       },
-      revalidate: 60,
     };
   } catch (error) {
     console.error(error);
