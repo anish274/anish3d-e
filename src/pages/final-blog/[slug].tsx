@@ -1,52 +1,54 @@
 import axios from 'axios';
 import { GetServerSideProps, NextPage } from 'next';
 import dynamic from 'next/dynamic';
+import Image from 'next/image';
 import { NextSeo } from 'next-seo';
 import { useEffect } from 'react';
 
 import BackButton from '@/common/components/elements/BackButton';
 import Container from '@/common/components/elements/Container';
-// import { formatExcerpt } from '@/common/helpers';
 import { BlogDetailProps } from '@/common/types/blog';
-import BlogDetailNotion from '@/modules/blog/components/BlogDetailNotion';
-import Image from 'next/image';
-import styles from '@/styles/NotionBlog.module.css';
+import BlogDetailContent from '@/modules/final-blog/components/BlogDetailContent';
+import styles from '@/styles/FinalBlog.module.css';
 
 const GiscusComment = dynamic(
   () => import('@/modules/blog/components/GiscusComment'),
 );
-import styled from '@emotion/styled';
 
-const NotionBlogDetailPage: NextPage<NotionBlogDetailPageProps> = ({
-  blog,
-}) => {
-  // const blogData = JSON.stringify(blog.data, null, 2) || {};
+interface FinalBlogDetailPageProps {
+  blog: {
+    status: number;
+    data: any;
+  };
+}
+
+const FinalBlogDetailPage: NextPage<FinalBlogDetailPageProps> = ({ blog }) => {
   const blogDataArray = blog.data || {};
   const blogData = blogDataArray[0];
-  // console.log("Blog TTTTTTTTTTTTTitle:", blogData[0]?.title?.rendered);
-  // console.log("Blog Data Structured:",  blogData );
 
-  const slug = `notion-blog/${blogData?.slug}`;
-  const canonicalUrl = `https://anish3d.com/${slug}`;
-  //const description = formatExcerpt(blogData?.excerpt?.rendered);
+  const slug = `final-blog/${blogData?.slug}`;
+  const canonicalUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/${slug}`;
   const description = blogData?.excerpt?.rendered;
-  // const description = blogData?.content?.markdown?.parent;
 
-  // const incrementViews = async () => {
-  //   await axios.post(`/api/views?&slug=${blogData?.slug}`);
-  // };
+  const incrementViews = async () => {
+    try {
+      await axios.post(`/api/views?&slug=${blogData?.slug}`);
+    } catch (error) {
+      console.error('Error incrementing views:', error);
+    }
+  };
 
-  // useEffect(() => {
-  //   if (process.env.NODE_ENV === 'production') {
-  //     incrementViews();
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+  useEffect(() => {
+    if (process.env.NODE_ENV === 'production') {
+      incrementViews();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>
       <NextSeo
-        title={`${blogData?.title?.rendered} - Notion Blog ${process.env.NEXT_PUBLIC_FULL_NAME}`}
+        title={`${blogData?.title?.rendered} - Final Blog | ${process.env.NEXT_PUBLIC_FULL_NAME}`}
         description={description}
         canonical={canonicalUrl}
         openGraph={{
@@ -54,7 +56,7 @@ const NotionBlogDetailPage: NextPage<NotionBlogDetailPageProps> = ({
           article: {
             publishedTime: blogData?.date,
             modifiedTime: blogData?.date,
-            authors: ['${process.env.NEXT_PUBLIC_FULL_NAME}'],
+            authors: [`${process.env.NEXT_PUBLIC_FULL_NAME}`],
           },
           url: canonicalUrl,
           images: [
@@ -62,11 +64,11 @@ const NotionBlogDetailPage: NextPage<NotionBlogDetailPageProps> = ({
               url: blogData?.featured_image_url,
             },
           ],
-          siteName: 'anish shah blog',
+          siteName: `${process.env.NEXT_PUBLIC_FULL_NAME} Blog`,
         }}
       />
       <Container data-aos='fade-up'>
-        <BackButton url='/notion-blog' />
+        <BackButton url='/final-blog' />
         {blogData?.featured_image_url && (
           <div className={styles.heroImage}>
             <Image
@@ -82,7 +84,7 @@ const NotionBlogDetailPage: NextPage<NotionBlogDetailPageProps> = ({
             </div>
           </div>
         )}
-        <BlogDetailNotion {...blogData} />
+        <BlogDetailContent {...blogData} />
         <section id='comments'>
           <GiscusComment isEnableReaction={false} />
         </section>
@@ -91,7 +93,7 @@ const NotionBlogDetailPage: NextPage<NotionBlogDetailPageProps> = ({
   );
 };
 
-export default NotionBlogDetailPage;
+export default FinalBlogDetailPage;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const slug = context.query?.slug as string;
@@ -99,10 +101,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
     console.log(
       'Debug - Fetching URL:',
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/notion-blog?slug=${slug}`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/final-blog-details?slug=${slug}`,
     );
     const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/notion-blog-details?slug=${slug}`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/final-blog-details?slug=${slug}`,
     );
     console.log('Debug - API Response:', response.data);
     const blog = response.data;
@@ -126,33 +128,3 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     };
   }
 };
-
-// export const getServerSideProps: GetServerSideProps = async (context) => {
-//   const blogId = context.query?.id as string;
-
-//   if (!blogId) {
-//     return {
-//       redirect: {
-//         destination: '/',
-//         permanent: false,
-//       },
-//     };
-//   }
-
-//   const response = await getNotionBlogById(blogId);
-//   console.log('response', response);
-//   // if (response?.status === 404) {
-//   //   return {
-//   //     redirect: {
-//   //       destination: '/404',
-//   //       permanent: false,
-//   //     },
-//   //   };
-//   // }
-
-//   return {
-//     props: {
-//       blog: response,
-//     },
-//   };
-// };

@@ -10,12 +10,61 @@ import Container from '@/common/components/elements/Container';
 import { BlogDetailProps } from '@/common/types/blog';
 import BlogDetailNotion from '@/modules/blog/components/BlogDetailNotion';
 import Image from 'next/image';
-import styles from '@/styles/NotionBlog.module.css';
 
 const GiscusComment = dynamic(
   () => import('@/modules/blog/components/GiscusComment'),
 );
+
 import styled from '@emotion/styled';
+
+const HeroImage = styled.div`
+  position: relative;
+  width: 100%;
+  height: 400px;
+  margin-bottom: 2rem;
+
+  img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.5) 0%,
+      rgba(0, 0, 0, 0.8) 100%
+    );
+    z-index: 1;
+  }
+`;
+
+const HeroContent = styled.div`
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 2rem;
+  color: white;
+
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+  }
+`;
 
 const NotionBlogDetailPage: NextPage<NotionBlogDetailPageProps> = ({
   blog,
@@ -68,7 +117,7 @@ const NotionBlogDetailPage: NextPage<NotionBlogDetailPageProps> = ({
       <Container data-aos='fade-up'>
         <BackButton url='/notion-blog' />
         {blogData?.featured_image_url && (
-          <div className={styles.heroImage}>
+          <HeroImage>
             <Image
               src={blogData.featured_image_url}
               alt={blogData?.title?.rendered || 'Blog post cover'}
@@ -76,11 +125,11 @@ const NotionBlogDetailPage: NextPage<NotionBlogDetailPageProps> = ({
               style={{ objectFit: 'cover' }}
               priority
             />
-            <div className={styles.heroContent}>
+            <HeroContent>
               <h1>{blogData?.title?.rendered}</h1>
               <p>{description}</p>
-            </div>
-          </div>
+            </HeroContent>
+          </HeroImage>
         )}
         <BlogDetailNotion {...blogData} />
         <section id='comments'>

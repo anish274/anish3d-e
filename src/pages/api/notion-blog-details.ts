@@ -1,12 +1,16 @@
 import { Client } from '@notionhq/client';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { NotionToMarkdown } from 'notion-to-md';
+import { getPageBlocks } from '@/modules/blog/components/BlogDetailsFromToken';
+import { NotionRenderer } from '@/common/utils/NotionRenderer';
+import styles from '@/styles/NotionBlog.module.css';
+import { n2m } from '@/services/n2m'; //"../n2m";
 
 const notion = new Client({
   auth: process.env.NOTION_API_KEY,
 });
 
-const n2m = new NotionToMarkdown({ notionClient: notion });
+//const n2m = new NotionToMarkdown({ notionClient: notion });
 
 export default async function handler(
   req: NextApiRequest,
@@ -53,8 +57,41 @@ export default async function handler(
       // Change from post_result[0].map to post_result.map
       const blogPosts = post_result.map(async (result: any) => {
         const id = result.id;
+
+        // //Set custom transformer for column lists
+        // n2m.setCustomTransformer("column_list", async (block) => {
+        //   const columns = await n2m.pageToMarkdown(block.id);
+        //   // Use markdown-compatible syntax for columns
+        //   let columnContent = '';
+
+        //   for (const column of columns) {
+        //     const content = await n2m.toMarkdownString(column.children);
+        //     // Wrap content in a div with proper markdown syntax
+        //     columnContent += `<div class="column">\n\n${content.parent}\n\n</div>`;
+        //   }
+
+        //   // Return properly formatted HTML that will be rendered correctly
+        //   return `<div class="column-list">\n\n${columnContent}\n\n</div>`;
+        // });
+
+        // Get markdown blocks and convert to string
         const mdblocks = await n2m.pageToMarkdown(id);
-        const mdString = n2m.toMarkdownString(mdblocks); // cspell:disable-line
+        const mdString = await n2m.toMarkdownString(mdblocks);
+
+        // n2m.setCustomTransformer("column_list", async (mdblocks) => {
+        //   const mdBlocks_temp = await n2m.pageToMarkdown(mdblocks.id);
+        //   let final_md_string = `<div className="column" style={{ display: "flex", columnGap: "25px" }}>`;
+
+        //   for (const one_block of mdBlocks_temp) {
+        //     const mdString_temp = n2m.toMarkdownString(one_block.children);
+        //     final_md_string = final_md_string + `<div>${mdString_temp}</div>`
+        //   }
+
+        //   return final_md_string + "</div>"
+        // });
+
+        // Convert to markdown string after setting the transformer
+
         const status = result.properties.Status?.status?.name;
         const slug =
           result.properties.slug?.rich_text?.[0]?.plain_text
@@ -73,6 +110,26 @@ export default async function handler(
             color: tag.color,
           })) || [];
 
+        // const notionRenderer = new NotionRenderer({
+        //   config: {
+        //     heading: {
+        //       className: styles.notionHeading
+        //     },
+        //     text: {
+        //       className: styles.notionText
+        //     },
+        //     image: {
+        //       className: styles.notionImage
+        //     }
+        //   }
+        // });
+
+        // const blocks = await getPageBlocks("2e22de6b770e4166be301490f6ffd420");
+        // // You could pass additional options if your render method supports them
+        // const contentHtml = notionRenderer.render(blocks);
+
+        // Or transform the blocks before rendering if needed
+        // const contentHtml = notionRenderer.render(transformBlocks(blocks));
         //const unique_id_property = result.properties.get("PostID", {});
         //const unique_id_value = result.properties.PostID.unique_id.number
 
@@ -93,7 +150,13 @@ export default async function handler(
             protected: false,
           },
           tags_list: tags,
+          page_content: {
+            rendered:
+              result.properties.page_content?.rich_text?.[0]?.plain_text || '',
+            protected: false,
+          },
           content: { markdown: mdString, protected: false },
+          full: post_result,
         };
       });
 
